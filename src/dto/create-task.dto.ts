@@ -4,11 +4,11 @@ import { ObjectId } from "mongoose";
 
 export class CreateTaskDto {
   @IsString()
-  name: string;
+  readonly name: string;
 
   @IsMongoId()
-  subject: ObjectId;
+  readonly subject: ObjectId;
 
   @IsEnum(TaskStatus)
-  status: TaskStatus;
+  readonly status: TaskStatus;
 }

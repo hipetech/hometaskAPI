@@ -5,14 +5,14 @@ import { IsMongoId, IsString} from "class-validator";
 
 export class CreateSubjectDto {
   @IsString()
-  name: string;
+  readonly name: string;
 
   @IsMongoId({each: true})
-  tasks: ObjectId[];
+  readonly tasks: ObjectId[];
 
   @IsString({ each: true })
-  teachers: string[];
+  readonly teachers: string[];
 
   @IsMongoId()
-  colors: ObjectId;
+  readonly colors: ObjectId;
 }
