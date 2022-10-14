@@ -1,9 +1,18 @@
-import { Task } from "../types/Task";
 import { ObjectId } from "mongoose";
+import { IsMongoId, IsString} from "class-validator";
+
+
 
 export class CreateSubjectDto {
-  readonly name: string;
-  readonly tasks: Task[];
-  readonly teachers: string[];
-  readonly color: ObjectId;
+  @IsString()
+  name: string;
+
+  @IsMongoId({each: true})
+  tasks: ObjectId[];
+
+  @IsString({ each: true })
+  teachers: string[];
+
+  @IsMongoId()
+  colors: ObjectId;
 }

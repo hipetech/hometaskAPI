@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document} from "mongoose";
-import {Task} from "../types/Task";
+
 import { Color } from "./color.schema";
+import { Task } from "./task.schema";
 
 export type SubjectSchema = Subject & Document;
 
@@ -10,7 +11,7 @@ export class Subject {
   @Prop()
   name: string;
 
-  @Prop([Task])
+  @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
   tasks: Task[];
 
   @Prop([String])
