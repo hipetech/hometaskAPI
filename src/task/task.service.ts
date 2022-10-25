@@ -4,16 +4,24 @@ import { Task } from "../schemas/task.schema";
 import { Model, ObjectId } from "mongoose";
 import { CreateTaskDto } from "../dto/create-task.dto";
 import { UpdateTaskDto } from "../dto/update-task.dto";
+import { Subject } from "../schemas/subject.schema";
 
 @Injectable()
 export class TaskService {
   private logger = new Logger(TaskService.name);
 
-  constructor(@InjectModel(Task.name) private taskModel: Model<Task>) {}
+  constructor(
+    @InjectModel(Task.name) private taskModel: Model<Task>,
+    @InjectModel(Subject.name) private subjectModel: Model<Subject>,
+  ) {
+  }
 
   async create(dto: CreateTaskDto): Promise<Task> {
     this.logger.log("using create");
-    return this.taskModel.create(dto);
+    const taskResult = await this.taskModel.create(dto);
+    const subject = await this.subjectModel.findById(dto.subject);
+    await this.subjectModel.findOneAndUpdate(dto.subject, { tasks: [...subject.tasks, taskResult._id] });
+    return taskResult;
   }
 
   async editStatusById(dto: UpdateTaskDto): Promise<Task> {
