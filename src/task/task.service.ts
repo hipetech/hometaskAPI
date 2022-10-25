@@ -9,8 +9,7 @@ import { UpdateTaskDto } from "../dto/update-task.dto";
 export class TaskService {
   private logger = new Logger(TaskService.name);
 
-  constructor(@InjectModel(Task.name) private taskModel: Model<Task>) {
-  }
+  constructor(@InjectModel(Task.name) private taskModel: Model<Task>) {}
 
   async create(dto: CreateTaskDto): Promise<Task> {
     this.logger.log("using create");

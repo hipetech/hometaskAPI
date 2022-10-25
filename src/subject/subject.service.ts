@@ -26,11 +26,11 @@ export class SubjectService {
 
   async getAll(): Promise<Subject[]> {
     this.logger.log("using getAll");
-    return this.subjectModel.find().populate(["colors", "tasks"]);
+    return this.subjectModel.find().populate("colors");
   }
 
   async getById(id: ObjectId): Promise<Subject> {
     this.logger.log("using getById");
-    return this.subjectModel.findById(id).populate("colors");
+    return this.subjectModel.findById(id).populate(["colors", "tasks"]);
   }
 }
