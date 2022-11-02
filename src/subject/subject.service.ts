@@ -31,6 +31,6 @@ export class SubjectService {
 
   async getById(id: ObjectId): Promise<Subject> {
     this.logger.log("using getById");
-    return this.subjectModel.findById(id).populate(["colors", "tasks"]);
+    return this.subjectModel.findById(id).populate(["colors", "toDO", "inProcess", "complete"]);
   }
 }
