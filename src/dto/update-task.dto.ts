@@ -4,7 +4,7 @@ import { IsEnum, IsMongoId } from "class-validator";
 
 export class UpdateTaskDto {
   @IsMongoId()
-  readonly id: ObjectId;
+  readonly _id: ObjectId;
 
   @IsEnum(TaskStatus)
   readonly status: TaskStatus;

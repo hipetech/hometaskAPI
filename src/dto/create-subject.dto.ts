@@ -8,7 +8,13 @@ export class CreateSubjectDto {
   readonly name: string;
 
   @IsMongoId({each: true})
-  readonly tasks: ObjectId[];
+  readonly toDO: ObjectId[];
+
+  @IsMongoId({each: true})
+  readonly inProcess: ObjectId[];
+
+  @IsMongoId({each: true})
+  readonly complete: ObjectId[];
 
   @IsString({ each: true })
   readonly teachers: string[];

@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Post, Put } from "@nestjs/common";
 import { CreateTaskDto } from "../dto/create-task.dto";
 import { Task } from "../schemas/task.schema";
 import { TaskService } from "./task.service";
 import { UpdateTaskDto } from "../dto/update-task.dto";
-import { ObjectId } from "mongoose";
+import { DeleteTaskDto } from "../dto/delete-task.dto";
 
 @Controller("/task")
 export class TaskController {
@@ -19,9 +19,9 @@ export class TaskController {
     return this.taskService.editStatusById(dto);
   }
 
-  @Delete(":id")
-  async deleteById(@Param("id") id: ObjectId): Promise<Task> {
-    return this.taskService.deleteById(id);
+  @Delete()
+  async deleteById(@Body() dto: DeleteTaskDto): Promise<Task> {
+    return this.taskService.deleteById(dto);
   }
 
 }

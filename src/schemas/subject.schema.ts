@@ -12,7 +12,13 @@ export class Subject {
   name: string;
 
   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
-  tasks: Task[];
+  toDO: Task[];
+
+  @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
+  inProcess: Task[];
+
+  @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
+  complete: Task[];
 
   @Prop([String])
   teachers: string[];
