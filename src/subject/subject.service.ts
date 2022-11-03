@@ -4,6 +4,7 @@ import { Subject } from "../schemas/subject.schema";
 import { Model, ObjectId } from "mongoose";
 import { CreateSubjectDto } from "../dto/create-subject.dto";
 import { Task } from "../schemas/task.schema";
+import { UpdateSubjectDto } from "../dto/update-subject.dto";
 
 
 @Injectable()
@@ -31,6 +32,18 @@ export class SubjectService {
 
   async getById(id: ObjectId): Promise<Subject> {
     this.logger.log("using getById");
-    return this.subjectModel.findById(id).populate(["colors", "toDO", "inProcess", "complete"]);
+    return this.subjectModel.findById(id)
+      .populate(["colors", "toDo", "inProcess", "complete"]);
+  }
+
+  async update(dto: UpdateSubjectDto): Promise<Subject> {
+    this.logger.log("using update");
+    return this.subjectModel.findByIdAndUpdate(dto._id,
+      {
+        toDo: dto.toDo,
+        inProcess: dto.inProcess,
+        complete: dto.complete
+      });
+
   }
 }

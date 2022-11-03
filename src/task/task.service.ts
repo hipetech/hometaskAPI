@@ -25,7 +25,7 @@ export class TaskService {
 
     switch (dto.status) {
       case TaskStatus.toDo:
-        await this.subjectModel.findByIdAndUpdate(dto.subject, { toDO: [...subject.toDO, taskResult._id] });
+        await this.subjectModel.findByIdAndUpdate(dto.subject, { toDo: [...subject.toDo, taskResult._id] });
         break;
       case TaskStatus.inProcess:
         await this.subjectModel.findByIdAndUpdate(dto.subject, { inProcess: [...subject.inProcess, taskResult._id] });
@@ -59,7 +59,7 @@ export class TaskService {
 
     switch (taskResult.status) {
       case TaskStatus.toDo:
-        await this.subjectModel.findByIdAndUpdate(dto.subject, { toDO: removeArr(subject.toDO)});
+        await this.subjectModel.findByIdAndUpdate(dto.subject, { toDo: removeArr(subject.toDo)});
         break;
       case TaskStatus.inProcess:
         await this.subjectModel.findByIdAndUpdate(dto.subject, { inProcess: removeArr(subject.inProcess) });
