@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document} from "mongoose";
 
 import { Color } from "./color.schema";
-import { Task } from "./task.schema";
 
 export type SubjectSchema = Subject & Document;
 
@@ -12,13 +11,13 @@ export class Subject {
   name: string;
 
   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
-  toDo: Task[];
+  toDo: mongoose.Types.ObjectId[];
 
   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
-  inProcess: Task[];
+  inProcess: mongoose.Types.ObjectId[];
 
   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
-  complete: Task[];
+  complete: mongoose.Types.ObjectId[];
 
   @Prop([String])
   teachers: string[];
