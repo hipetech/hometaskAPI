@@ -88,7 +88,7 @@ export class SearchService {
   }
 
   private async dfs(term: string): Promise<SearchResult[]> {
-    this.logger.log("using breadth-first search");
+    this.logger.log("using depth-first search");
     return this.getSearchData(() => this.searchForDfs(term));
   }
 
