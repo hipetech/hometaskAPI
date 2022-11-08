@@ -1,9 +1,9 @@
 import { IsMongoId } from "class-validator";
-import { ObjectId } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 export class DeleteTaskDto {
   @IsMongoId()
-  readonly _id: string;
+  readonly _id: mongoose.Types.ObjectId;
 
   @IsMongoId()
   readonly subject: ObjectId;

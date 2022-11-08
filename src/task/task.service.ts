@@ -27,13 +27,13 @@ export class TaskService {
   ): Promise<void> {
     switch (status) {
       case TaskStatus.toDo:
-        await this.subjectModel.findByIdAndUpdate(_id, { toDo: toDo });
+        await this.subjectModel.findByIdAndUpdate({ _id: _id }, { toDo: toDo });
         break;
       case TaskStatus.inProcess:
-        await this.subjectModel.findByIdAndUpdate(_id, { inProgress: inProgress });
+        await this.subjectModel.findByIdAndUpdate({ _id: _id }, { inProgress: inProgress });
         break;
       case TaskStatus.complete:
-        await this.subjectModel.findByIdAndUpdate(_id, { complete: complete });
+        await this.subjectModel.findByIdAndUpdate({ _id: _id }, { complete: complete });
         break;
     }
   }
@@ -59,12 +59,6 @@ export class TaskService {
     return this.taskModel.findOneAndUpdate({ _id: dto._id }, { status: dto.status });
   }
 
-  private deleteArray(array: mongoose.Types.ObjectId[], id: mongoose.Types.ObjectId): mongoose.Types.ObjectId[] {
-    return array.filter(taskId => {
-      if (taskId !== id) return taskId;
-    });
-  }
-
   async deleteById(dto: DeleteTaskDto): Promise<Task> {
     this.logger.log("use deleteById");
     const taskResult = await this.taskModel.findByIdAndDelete(dto._id);
@@ -73,9 +67,9 @@ export class TaskService {
     await this.switchStatus(
       dto.subject,
       taskResult.status,
-      this.deleteArray(subject.toDo, taskResult._id),
-      this.deleteArray(subject.inProcess, taskResult._id),
-      this.deleteArray(subject.complete, taskResult._id)
+      subject.toDo.filter(taskId => !taskId.equals(taskResult._id)),
+      subject.inProcess.filter(taskId => !taskId.equals(taskResult._id)),
+      subject.complete.filter(taskId => !taskId.equals(taskResult._id))
     );
 
     return taskResult;
