@@ -3,7 +3,7 @@ import { Color } from "../schemas/color.schema";
 
 export interface SearchResult {
   name: string,
-  subjectName: string,
   subjectId: ObjectId,
+  subjectName: string,
   colors: Color
 }

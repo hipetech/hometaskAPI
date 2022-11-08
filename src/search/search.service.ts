@@ -19,7 +19,6 @@ export class SearchService {
   private readonly strings: string[];
   private readonly tasks: string[];
 
-
   constructor(
     @InjectModel(Subject.name) private subjectModel: Model<Subject>,
   ) {
@@ -72,7 +71,6 @@ export class SearchService {
     return this.results;
   }
 
-
   private searchForBfs(term: string): SearchResult[] {
     for (const key of [...this.keys, ...this.strings, ...this.tasks]) {
       for (const subject of this.subjects) {
@@ -82,9 +80,9 @@ export class SearchService {
     return this.results;
   }
 
-  private async getSearchData(method: () => SearchResult[]): Promise<SearchResult[]> {
+  private async getSearchData(searchFor: () => SearchResult[]): Promise<SearchResult[]> {
     this.subjects = await this.getModelData();
-    const res = method();
+    const res = searchFor();
     this.results = [];
     return res;
   }
